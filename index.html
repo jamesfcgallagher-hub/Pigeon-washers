@@ -685,11 +685,13 @@ async function fetchBusyDates(year, month) {
     + encodeURIComponent(GOOGLE_CALENDAR_ID) + '/events'
     + '?key=' + GOOGLE_API_KEY
     + '&timeMin=' + tMin + '&timeMax=' + tMax
-    + '&singleEvents=true&fields=items(start,end)';
+    + '&singleEvents=true&q=BOOKED&fields=items(summary,start,end)';
   try {
     const data = await (await fetch(url)).json();
     const busy = new Set();
-    (data.items || []).forEach(function(ev) {
+    (data.items || []).filter(function(ev) {
+      return (ev.summary || '').trim().toUpperCase() === 'BOOKED';
+    }).forEach(function(ev) {
       const s = new Date(ev.start.date || ev.start.dateTime);
       const e = new Date(ev.end.date   || ev.end.dateTime);
       for (var c = new Date(s); c <= e; c.setDate(c.getDate()+1))
