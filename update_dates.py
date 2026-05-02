@@ -42,15 +42,15 @@ with open('index.html', 'r', encoding='utf-8') as f:
 
 # Replace contents of grid-week1
 html = re.sub(
-    r'(<div class="two-week-grid" id="grid-week1">).*?(</div>\s*</div>)',
-    lambda m: m.group(1) + '\n        ' + week1 + '\n      ' + m.group(2),
+    r'(<div class="two-week-grid" id="grid-week1">).*?(\n      </div>)',
+    lambda m: m.group(1) + '\n        ' + week1 + m.group(2),
     html, flags=re.DOTALL, count=1
 )
 
 # Replace contents of grid-week2
 html = re.sub(
-    r'(<div class="two-week-grid" id="grid-week2">).*?(</div>\s*</div>)',
-    lambda m: m.group(1) + '\n        ' + week2 + '\n      ' + m.group(2),
+    r'(<div class="two-week-grid" id="grid-week2">).*?(\n      </div>)',
+    lambda m: m.group(1) + '\n        ' + week2 + m.group(2),
     html, flags=re.DOTALL, count=1
 )
 
