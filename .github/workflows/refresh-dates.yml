@@ -5,6 +5,11 @@ on:
   schedule:
     - cron: '0 13 * * 0'
 
+  # Deploy automatically whenever main is updated
+  push:
+    branches:
+      - main
+
   # Also lets you trigger it manually from the GitHub Actions tab
   workflow_dispatch:
 
