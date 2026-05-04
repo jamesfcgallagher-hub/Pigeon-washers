@@ -252,7 +252,9 @@
   .tw-day.tw-booked .tw-tag  { background: rgba(220,50,50,.3); color: #ff9999; }
   .tw-day.tw-today { outline: 2px solid var(--yellow); outline-offset: 2px; }
   @media(max-width:600px) {
-    .two-week-grid { gap: 5px; }
+    .tw-week-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .two-week-grid { gap: 5px; min-width: 360px; }
+    .tw-day { padding: .6rem .2rem .5rem; }
     .tw-date { font-size: .85rem; }
     .tw-dow, .tw-month { font-size: .5rem; }
     .tw-tag  { font-size: .5rem; padding: .15rem .3rem; }
