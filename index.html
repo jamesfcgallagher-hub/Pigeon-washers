@@ -781,12 +781,44 @@ function scheduleNextDay() {
 }
 
 renderCalendar();
-scheduleNextDay(); }, msUntilMidnight);
-}
-
-renderCalendar();
 scheduleNextDay();
+
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxBR5cKvNofoXLud2L_K_8ADgdpAEKBwE_PG_dqh9t0iU1dO82gPiJ_caH77W9c4lrH8Q/exec';
+
+async function submitForm() {
+  const fname   = document.getElementById('fname').value.trim();
+  const lname   = document.getElementById('lname').value.trim();
+  const email   = document.getElementById('email').value.trim();
+  const phone   = document.getElementById('phone').value.trim();
+  const service = document.getElementById('service').value;
+  const type    = document.getElementById('type').value;
+  const address = document.getElementById('address').value.trim();
+  const message = document.getElementById('message').value.trim();
+
+  if (!fname || !email || !service) {
+    alert('Please fill in your name, email and service required.');
+    return;
+  }
+
+  const btn = document.querySelector('.btn-submit');
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fname, lname, email, phone, service, type, address, message })
+    });
+    document.getElementById('form-fields').style.display = 'none';
+    document.getElementById('form-success').style.display = 'flex';
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = 'SEND ENQUIRY — FREE QUOTE';
+    alert('Something went wrong. Please try again or contact us directly.');
+  }
 }
-function nextMonth() {
-  curMonth++;
-  if (curMonth > 1
+</script>
+</body>
+</html>
